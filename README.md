@@ -23,19 +23,24 @@ $$\Pi_j = \frac{1}{2} + \frac{1}{\pi} \int_0^\infty \text{Re} \left[ \frac{e^{-i
 * **$\Phi_2(u, T)$:** The standard characteristic function of the log-price process under CGMY.
 * **$\Phi_1(u, T)$:** The "shifted" characteristic function, defined as $\Phi_1(u) = \frac{\Phi_2(u-i)}{\Phi_2(-i)}$, which uses the stock price as the numeraire (measure change).
 
-### 2. Model Comparison & Empirical Analysis
-I conducted a rigorous comparison between three pricing paradigms to evaluate the CGMY model's superiority:
-* **CGMY Model:** Capturing jumps and skewness through the parameters $C, G, M, Y$.
-* **Black-Scholes Model:** Used as a baseline to highlight the limitations of the log-normal distribution and constant volatility.
-* **Market Prices (SPX):** Real-world benchmarks used to evaluate calibration accuracy.
+### 2. Model Comparison & Numerical Validation
+I conducted a rigorous comparison across four different pricing paradigms to evaluate the CGMY model's performance and ensure numerical consistency:
+
+* **CGMY Analytical Model:** Prices obtained via the Bakshi-Madan formula and Gil-Pelaez inversion of the characteristic function.
+* **Monte Carlo Simulation:** Implemented a numerical simulator for the CGMY process to validate the analytical results. This involved simulating the underlying Lévy paths and computing the expected payoff under the risk-neutral measure.
+* **Black-Scholes Model:** Used as a baseline to highlight the limitations of constant volatility and the absence of jumps in traditional models.
+* **Market Prices (SPX):** Real-world benchmarks used to evaluate the model's calibration to the empirical volatility smile.
 
 ---
 
 ## 📈 Key Insights & Results
 
+* **Numerical Consistency:** The Monte Carlo results converged successfully to the analytical Bakshi-Madan prices, validating the high-precision integration of the characteristic function.
 * **Volatility Smile Fitting:** The CGMY model significantly outperformed Black-Scholes in fitting Out-of-the-Money (OTM) options, accurately capturing the market's tail-risk expectations.
-* **Parameter Sensitivity:** Analysis of how the **$Y$ parameter** influences the fine structure of the process, shifting it from finite to infinite activity.
-* **Dividend Yield Impact:** Successful integration of $q$ into the Fourier inversion, ensuring the model is applicable to major equity indices.
+* **Dividend Yield Impact:** Successful integration of $q$ into the Fourier inversion, ensuring the model is applicable to major equity indices like the SPX.
+
+![Price Comparison](visualizations/pricing_comparison_plot.png)
+*Figure: CGMY Bakshi-Madan vs CGMY Monte Carlo vs Black-Scholes vs Market Prices for SPX Options.*
 
 ---
 
